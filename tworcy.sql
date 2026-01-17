@@ -39,8 +39,8 @@ CREATE TABLE `tworcy` (
 --
 
 INSERT INTO `tworcy` (`id`, `nazwa`, `imie`, `nazwisko`) VALUES
-(1, '67warrior', 'joanna', 'stolczyk'),
-(3, 'pielkie_waly', 'szymon', 'macipala');
+(1, 'skibiditoilet', 'joanna', 'stolczyk'),
+(3, '676767', 'szymon', 'macipala');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
