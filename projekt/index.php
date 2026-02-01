@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+if (isset($_SESSION['user_id'])) {
+    header('Location: welcome.php');
+} else {
+    header('Location: login.php');
+}
+exit;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,30 +17,7 @@
     <title>Document</title>
 </head>
 <body>
-    <p>dupa</p>
+    <h1>ZALOGUJ SIE PASOŻYCIE!!!</h1>   
+
 </body>
-
-<?php
-$conn = new mysqli("localhost", "root", "", "daza_banych");
-if ($conn->connect_errno) {
-    die("Błąd połączenia: " . $conn->connect_error);
-}
-
-$sql = "SELECT nazwa FROM tworcy";
-
-$result = $conn->query($sql);
-
-if (!$result) {
-    die("Błąd zapytania: " . $conn->error);
-    }
-
-$fields = $result->fetch_fields();
-
-while ($row = $result->fetch_assoc()) {
-    echo "<p>" . $row['nazwa'] . "</p>";
-}
-
-$conn->close();
-
-?>
 </html>
