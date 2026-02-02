@@ -60,13 +60,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
     <title>Document</title>
 </head>
 <body>
-    <h1>Strona Główna</h1>
+    <h1>Zaloguj sie</h1>
     <form action="POST"></form>
     <form method="post">
         <label>Login: <input type="text" name="login"></label><br>
         <label>Hasło: <input type="password" name="haslo"></label><br><br>
         <button type="submit">Zaloguj</button>
     </form>
-    <p>swedzom mnie jaja</p>
 </body>
 </html>
