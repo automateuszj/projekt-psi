@@ -17,6 +17,6 @@ exit;
     <title>Document</title>
 </head>
 <body>
-    <h1>ZALOGUJ SIE PASOŻYCIE!!!</h1>   
+    <h1>ZALOGUJ SIE PASOŻYCIE!!!</h1>
 </body>
 </html>
