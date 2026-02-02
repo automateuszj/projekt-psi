@@ -61,7 +61,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 </head>
 <body>
     <h1>Strona Główna</h1>
-    <p>zaloguj: (funkcj atymczasowo niedostępna)</p>
     <form action="POST"></form>
     <form method="post">
         <label>Login: <input type="text" name="login"></label><br>
