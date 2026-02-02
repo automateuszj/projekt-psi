@@ -18,6 +18,5 @@ exit;
 </head>
 <body>
     <h1>ZALOGUJ SIE PASOŻYCIE!!!</h1>   
-
 </body>
 </html>

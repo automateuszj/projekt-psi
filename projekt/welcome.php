@@ -15,6 +15,13 @@ if (!isset($_SESSION['user_id'])) {
     <title>Document</title>
 </head>
 <body>
-    <p>witaj na stronie</p>
+    <h1>Witaj <?= htmlspecialchars($_SESSION['username']) ?></h1>
+    <form action="logout.php" method="post">
+        <button type="submit">Wyloguj się</button>
+    </form>
+
+    <form action="creator_register.php" method="post">
+        <button type="submit">Zarejestruj się jako twórca</button>
+    </form>
 </body>
 </html>
