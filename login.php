@@ -67,6 +67,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
         <label>Hasło: <input type="password" name="haslo"></label><br><br>
         <button type="submit">Zaloguj</button>
     </form>
-
+    <p>swedzom mnie jaja</p>
 </body>
 </html>
