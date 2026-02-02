@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
             {
                 //Zapisujemy dane do sesji
                 $_SESSION['user_id'] = $row['user_id'];
-                $_SESSION['user_login'] = $login;
+                $_SESSION['username'] = $login;
 
                 header('Location: index.php');
                 exit;
