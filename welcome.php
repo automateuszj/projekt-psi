@@ -43,20 +43,26 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
-    <h1>Witaj <?= htmlspecialchars($_SESSION['username']) ?></h1>
-    <form action="logout.php" method="post">
-        <button type="submit">Wyloguj się</button>
-    </form>
 
+<body>
+    <!-- tekst witajacy -->
+    <h1>Witaj <?= htmlspecialchars($_SESSION['username']) ?></h1>
+
+    <!-- wylogowywaniw sie -->
+    <a href="logout.php">Wyloguj się</a>
+
+    <!-- rejestracja --- sie jako content creator, chce zrobić by po klikneciu otwierala sie nowa strona na ktorej muszisz podac jakies pierdoly typu numer telefonu itd. zeby odwzorowac jakas weryfikacje -->
     <?php if (!$isCreator): ?>
-        <form action="creator_register.php" method="post">
-            <button type="submit">Zarejestruj się jako twórca</button>
-        </form>
+        <a href="creator_register.php">Zarejestruj się jako twórca</a>
     <?php else: ?>
-        <form action="creator_unregister.php" method="post">
-            <button type="submit">Przestań być twórcą</button>
-        </form>
+        <a href="creator_unregister.php">Przestań być twórcą</a>
     <?php endif; ?>
+
+    <!-- dodawanie postu --- to wyswietli sie tylko jak jestes content_crator, przekieruje cie na inna strone do dodawnia postu -->
+    <?php if ($isCreator): ?>
+        <a href="add_post.php">Dodaj post</a>
+    <?php endif; ?>
+
 </body>
+
 </html>
