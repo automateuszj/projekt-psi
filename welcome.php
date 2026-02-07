@@ -31,6 +31,19 @@ if ($row = $result->fetch_assoc()) {
     $isCreator = ($row['active'] == 1);
 }
 
+$sql = "
+SELECT 
+    p.content,
+    p.created_at,
+    u.username
+FROM posts p
+JOIN content_creators cc ON p.content_creator_id = cc.id
+JOIN users u ON cc.user_id = u.user_id
+ORDER BY p.created_at DESC
+";
+
+$result = $conn->query($sql);
+
 $stmt->close();
 $conn->close();
 
@@ -58,9 +71,24 @@ $conn->close();
         <a href="creator_unregister.php">Przestań być twórcą</a>
     <?php endif; ?>
 
-    <!-- dodawanie postu --- to wyswietli sie tylko jak jestes content_crator, przekieruje cie na inna strone do dodawnia postu -->
+    <!-- przekierowanie na panel tworcy --- to wyswietli sie tylko jak jestes content_crator, przekieruje cie na inna strone do dodawnia postu -->
     <?php if ($isCreator): ?>
-        <a href="add_post.php">Dodaj post</a>
+        <a href="creator_panel.php">twoja twórczość</a>
+    <?php endif; ?>
+
+    <!-- tu masz posty, to strong small itd to se pozmieniaj jak ci bedzie trzeba ale nie tykaj phpowych znacznikow -->
+
+    <?php if ($result->num_rows > 0): ?>
+        <?php while ($row = $result->fetch_assoc()): ?>
+            <div class="post">
+                <strong><?= htmlspecialchars($row['username']) ?></strong>
+                <small><?= $row['created_at'] ?></small>
+                <p><?= nl2br(htmlspecialchars($row['content'])) ?></p>
+            </div>
+            <hr>
+        <?php endwhile; ?>
+    <?php else: ?>
+        <p>Brak postów.</p>
     <?php endif; ?>
 
 </body>
