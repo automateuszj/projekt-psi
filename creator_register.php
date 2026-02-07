@@ -14,8 +14,8 @@ if (!isset($_SESSION['user_id'])) {
 $userId = $_SESSION['user_id'];
 
 $sql = "
-INSERT INTO content_creators (user_id, username, active)
-SELECT user_id, username, 1
+INSERT INTO content_creators (user_id, active)
+SELECT user_id, 1
 FROM users
 WHERE user_id = ?
 ON DUPLICATE KEY UPDATE active = 1
