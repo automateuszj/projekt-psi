@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label>hasło</label><br>
         <input type="password" name="password" required><br>
 
-        <label>hasło</label><br>
+        <label>powtórz hasło</label><br>
         <input type="password" name="password_check" required><br>
 
         <button type="submit">Dodaj</button>
