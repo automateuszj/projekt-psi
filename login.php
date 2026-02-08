@@ -1,5 +1,9 @@
 <?php
 
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
+
 session_start();
 require 'connection.php';
 $komunikat = '';
@@ -8,9 +12,6 @@ if (isset($_SESSION['user_id'])) {
     header('Location: welcome.php');
     exit;
 }
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') 
 {
@@ -67,5 +68,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
         <label>Hasło: <input type="password" name="haslo"></label><br><br>
         <button type="submit">Zaloguj</button>
     </form>
+
+    <h1>nie masz konta?</h1>
+    <a href="create_account.php">utwórz je!</a>
+
 </body>
 </html>
