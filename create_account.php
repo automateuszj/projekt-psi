@@ -1,8 +1,7 @@
 <?php
-
 session_start();
 require 'connection.php';
-$komunikat = '';
+$error = ''; 
 
 if (isset($_SESSION['user_id'])) {
     header('Location: welcome.php');
@@ -10,82 +9,79 @@ if (isset($_SESSION['user_id'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    //sprawdzanie czy hasla sa jednakowe
-    $password = trim($_POST['password'] ?? '');
-    $password_check = trim($_POST['password_check'] ?? '');
-
-    if ($first_name === '' || $last_name === '' || $username === '' || $password === '')
-        $error = 'Wszystkie pola są wymagane';
-    elseif ($password !== $password_check)
-        $error = 'Hasła nie są jednakowe';
-
-    //sprawdzanie czy reszta danych jest poprawnie wpisana
     $first_name = trim($_POST['first_name'] ?? '');
     $last_name = trim($_POST['last_name'] ?? '');
     $username = trim($_POST['username'] ?? '');
+    $password = trim($_POST['password'] ?? '');
+    $password_check = trim($_POST['password_check'] ?? '');
 
-    if (!isset($error)) {
-        //hashowanie hasla
+    if ($first_name === '' || $last_name === '' || $username === '' || $password === '') {
+        $error = 'Wszystkie pola są wymagane';
+    } elseif ($password !== $password_check) {
+        $error = 'Hasła nie są jednakowe';
+    }
+
+    if ($error === '') {
         $hash = password_hash($password, PASSWORD_DEFAULT);
-
-        // rozpoczecie transkacji, jak cos bedzie nie tak to wszystko sie zresetuje
         $conn->begin_transaction();
         try {
-
-            $sql = "
-            INSERT INTO users (first_name, last_name, username, Upassword)
-            VALUES(?, ?, ?, ?)
-            ";
-
+            $sql = "INSERT INTO users (first_name, last_name, username, Upassword) VALUES(?, ?, ?, ?)";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param('ssss', $first_name, $last_name, $username, $hash);
             $stmt->execute();
             $stmt->close();
 
             $conn->commit();
-            header('Location: login.php');
+            header('Location: login.php?registered=1'); 
             exit;
         }
         catch (Exception $e) {
             $conn->rollback();
-            die('Błąd przy tworzeniu użytkownika');
-            
+            $error = 'Błąd przy tworzeniu użytkownika (możliwe, że login jest zajęty)';
         }
     }
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Utwórz konto</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Zaloguj sie</h1>
-    <form method="POST">
-        <label>imie</label><br>
-        <input type="text"name="first_name" required><br>
+    <div class="login-container">
+        <h1>Załóż konto</h1>
 
-        <label>nazwisko</label><br>
-        <input type="text" name="last_name" required><br>
+        <?php if ($error !== ''): ?>
+            <div class="error"><?php echo htmlspecialchars($error); ?></div>
+        <?php endif; ?>
 
-        <label>nazwa użytkownika</label><br>
-        <input type="text" name="username" required><br>
+        <form method="POST">
+            <label>Imię</label>
+            <input type="text" name="first_name" placeholder="np. Jan" required>
 
-        <label>hasło</label><br>
-        <input type="password" name="password" required><br>
+            <label>Nazwisko</label>
+            <input type="text" name="last_name" placeholder="np. Kowalski" required>
 
-        <label>powtórz hasło</label><br>
-        <input type="password" name="password_check" required><br>
+            <label>Nazwa użytkownika</label>
+            <input type="text" name="username" placeholder="Twój unikalny login" required>
 
-        <button type="submit">Dodaj</button>
-    </form>
+            <label>Hasło</label>
+            <input type="password" name="password" placeholder="Minimum 6 znaków" required>
 
-    <?php if (isset($error)): ?>
-        <p style="color:red"><?= htmlspecialchars($error) ?></p>
-    <?php endif; ?>
+            <label>Powtórz hasło</label>
+            <input type="password" name="password_check" placeholder="Wpisz hasło ponownie" required>
+
+            <button type="submit">Zarejestruj się</button>
+        </form>
+
+        <div class="register-link-container">
+            <p>Masz już konto?</p>
+            <a href="login.php" class="register-link">Zaloguj się tutaj</a>
+        </div>
+    </div>
 </body>
 </html>
