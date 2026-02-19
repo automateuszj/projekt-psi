@@ -54,43 +54,44 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+    <title>Strona Główna</title>
+    <link rel="stylesheet" href="welcome_style.css"> </head>
 
 <body>
-    <!-- tekst witajacy -->
-    <h1>Witaj <?= htmlspecialchars($_SESSION['username']) ?></h1>
+    <nav class="navbar">
+        <div class="user-info">
+            Witaj, <span><?= htmlspecialchars($_SESSION['username']) ?></span>
+        </div>
+        
+        <div class="nav-links">
+            <?php if (!$isCreator): ?>
+                <a href="creator_register.php" class="btn-creator">Zostań twórcą</a>
+            <?php else: ?>
+                <a href="creator_panel.php" style="color: #38bdf8; font-weight: bold;">Twoja twórczość</a>
+                <a href="creator_unregister.php">Zrezygnuj</a>
+            <?php endif; ?>
 
-    <!-- wylogowywaniw sie -->
-    <a href="logout.php">Wyloguj się</a>
+            <a href="logout.php" class="btn-logout">Wyloguj się</a>
+        </div>
+    </nav>
 
-    <!-- rejestracja --- sie jako content creator, chce zrobić by po klikneciu otwierala sie nowa strona na ktorej muszisz podac jakies pierdoly typu numer telefonu itd. zeby odwzorowac jakas weryfikacje -->
-    <?php if (!$isCreator): ?>
-        <a href="creator_register.php">Zarejestruj się jako twórca</a>
-    <?php else: ?>
-        <a href="creator_unregister.php">Przestań być twórcą</a>
-    <?php endif; ?>
+    <div class="container">
+        <h2>Najnowsze wpisy</h2>
 
-    <!-- przekierowanie na panel tworcy --- to wyswietli sie tylko jak jestes content_crator, przekieruje cie na inna strone do dodawnia postu -->
-    <?php if ($isCreator): ?>
-        <a href="creator_panel.php">twoja twórczość</a>
-    <?php endif; ?>
-
-    <!-- tu masz posty, to strong small itd to se pozmieniaj jak ci bedzie trzeba ale nie tykaj phpowych znacznikow -->
-
-    <?php if ($result->num_rows > 0): ?>
-        <?php while ($row = $result->fetch_assoc()): ?>
-            <div class="post">
-                <strong><?= htmlspecialchars($row['username']) ?></strong>
-                <small><?= $row['created_at'] ?></small>
-                <p><?= nl2br(htmlspecialchars($row['content'])) ?></p>
+        <?php if ($result->num_rows > 0): ?>
+            <?php while ($row = $result->fetch_assoc()): ?>
+                <div class="post">
+                    <strong><?= htmlspecialchars($row['username']) ?></strong>
+                    <small><?= $row['created_at'] ?></small>
+                    <p><?= nl2br(htmlspecialchars($row['content'])) ?></p>
+                </div>
+            <?php endwhile; ?>
+        <?php else: ?>
+            <div class="post" style="text-align: center;">
+                <p>Cisza tutaj... Brak postów.</p>
             </div>
-            <hr>
-        <?php endwhile; ?>
-    <?php else: ?>
-        <p>Brak postów.</p>
-    <?php endif; ?>
-
+        <?php endif; ?>
+    </div>
 </body>
 
 </html>

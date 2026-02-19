@@ -1,0 +1,109 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    /* Jasnoszary/grafitowy odcień zamiast czerni */
+    background-color: #353535; 
+    color: #eeeeee;
+    padding-top: 80px;
+    min-height: 100vh;
+}
+
+/* Pasek nawigacji - teraz wyraźniejszy */
+.navbar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    background-color: #2a2a2a; 
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 2px solid #444;
+    z-index: 1000;
+}
+
+.user-info {
+    font-size: 1rem;
+    color: #ccc;
+    border-right: 1px solid #555;
+    padding-right: 20px;
+}
+
+.user-info span {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.nav-links a {
+    color: #dddddd;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+.nav-links a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+/* Przyciski */
+.btn-creator {
+    background-color: #505050; 
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: 1px solid #666;
+}
+
+.btn-creator:hover {
+    background-color: #606060;
+}
+
+.btn-logout {
+    color: #ff8e8e !important;
+}
+
+/* Kontener z postami */
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h2 {
+    margin-bottom: 25px;
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+.post {
+    background-color: #454545; /* Jaśniejszy szary dla postów */
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.post strong {
+    color: #fff;
+    font-size: 1.1rem;
+}
+
+.post small {
+    color: #bbb;
+    display: block;
+    margin-top: 5px;
+}
+
+.post p {
+    margin-top: 15px;
+    color: #e0e0e0;
+    line-height: 1.6;
+}

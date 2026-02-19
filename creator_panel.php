@@ -95,7 +95,6 @@
     <?php if ($result->num_rows > 0): ?>
         <?php while ($row = $result->fetch_assoc()): ?>
             <div class="post">
-                <strong><?= htmlspecialchars($row['username']) ?></strong>
                 <small><?= $row['created_at'] ?></small>
                 <p><?= nl2br(htmlspecialchars($row['content'])) ?></p>
             </div>
