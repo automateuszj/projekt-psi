@@ -1,9 +1,5 @@
 <?php
 
-// ini_set('display_errors', 1);
-// ini_set('display_startup_errors', 1);
-// error_reporting(E_ALL);
-
 session_start();
 require 'connection.php';
 $komunikat = '';
@@ -12,6 +8,9 @@ if (isset($_SESSION['user_id'])) {
     header('Location: welcome.php');
     exit;
 }
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') 
 {
@@ -59,18 +58,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="login.css">
 </head>
 <body>
-    <h1>Zaloguj sie</h1>
-    <form action="POST"></form>
-    <form method="post">
-        <label>Login: <input type="text" name="login"></label><br>
-        <label>Hasło: <input type="password" name="haslo"></label><br><br>
-        <button type="submit">Zaloguj</button>
-    </form>
+    <div class="login-container">
+        
+        <h1>Zaloguj się</h1>
 
-    <h1>nie masz konta?</h1>
-    <a href="create_account.php">utwórz je!</a>
+        <?php if ($komunikat): ?>
+            <div class="error"><?php echo $komunikat; ?></div>
+        <?php endif; ?>
 
+        <form method="post">
+            <label>Login:</label>
+            <input type="text" name="login" placeholder="Wpisz login">
+            
+            <label>Hasło:</label>
+            <input type="password" name="haslo" placeholder="Wpisz hasło">
+            
+            <button type="submit">Zaloguj</button>
+        </form>
+
+        <div class="register-link-container">
+            <p>Nie masz konta?</p>
+            <a href="create_account.php" class="register-link">Utwórz je!</a>
+        </div>
+
+    </div>
 </body>
 </html>
