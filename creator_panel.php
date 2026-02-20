@@ -31,18 +31,31 @@
     // pobieranie warosci z formsa i insert do bazy
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+        if (isset($_POST['delete_post_id'])){
+            $stmt = $conn->prepare("
+            UPDATE posts
+            SET hidden = 1
+            WHERE id = ?
+            ");
+            $stmt->bind_param('i', $_POST['delete_post_id']);
+            $stmt->execute();
+
+            $stmt->close();
+            $conn->close();
+
+            header('Location: creator_panel.php?post_deleted=1');
+            exit;
+        }
+
         $content = trim($_POST['content'] ?? '');
 
         if ($content === '') {
             die('Tresc posta nie moze byc pusta');
         }
-
-         $sql = "
+            $stmt = $conn->prepare("
             INSERT INTO posts (content_creator_id, content)
             VALUES (?, ?)
-            ";
-
-            $stmt = $conn->prepare($sql);
+            ");
             $stmt->bind_param('is', $creatorId, $content);
             $stmt->execute();
 
@@ -57,7 +70,7 @@
     $stmt = $conn->prepare("
     SELECT id, content, created_at
     FROM posts
-    WHERE content_creator_id = ?
+    WHERE content_creator_id = ? AND hidden = 0
     ORDER BY created_at DESC
     ");
     $stmt->bind_param('i', $creatorId);
@@ -97,6 +110,10 @@
             <div class="post">
                 <small><?= $row['created_at'] ?></small>
                 <p><?= nl2br(htmlspecialchars($row['content'])) ?></p>
+                <form method="post">
+                    <input type="hidden" name="delete_post_id" value="<?= $row['id'] ?>">
+                    <button type="submit">Usuń</button>
+                </form>
             </div>
             <hr>
         <?php endwhile; ?>
