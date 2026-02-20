@@ -5,105 +5,145 @@
 }
 
 body {
-    font-family: 'Segoe UI', sans-serif;
-    /* Jasnoszary/grafitowy odcień zamiast czerni */
-    background-color: #353535; 
-    color: #eeeeee;
-    padding-top: 80px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
+    color: #333;
+    padding-top: 100px;
 }
 
-/* Pasek nawigacji - teraz wyraźniejszy */
+/* NAVBAR */
+
 .navbar {
     position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    background-color: #2a2a2a; 
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 1100px;
+
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+
     padding: 1rem 2rem;
+    border-radius: 20px;
+
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
-    gap: 20px;
-    border-bottom: 2px solid #444;
+
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
     z-index: 1000;
 }
 
 .user-info {
     font-size: 1rem;
-    color: #ccc;
-    border-right: 1px solid #555;
-    padding-right: 20px;
+    color: #555;
 }
 
 .user-info span {
-    color: #ffffff;
     font-weight: bold;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
+/* LINKI */
+
 .nav-links a {
-    color: #dddddd;
     text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: 0.2s;
+    font-weight: 600;
+    margin-left: 20px;
+    transition: 0.3s ease;
+    color: #555;
 }
 
 .nav-links a:hover {
-    color: #ffffff;
-    text-decoration: underline;
+    color: #667eea;
 }
 
-/* Przyciski */
+/* BUTTON STYLE (jak w loginie) */
+
 .btn-creator {
-    background-color: #505050; 
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white !important;
     padding: 8px 16px;
-    border-radius: 6px;
-    border: 1px solid #666;
+    border-radius: 12px;
+    transition: 0.3s ease;
 }
 
 .btn-creator:hover {
-    background-color: #606060;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
 }
 
 .btn-logout {
-    color: #ff8e8e !important;
+    color: #c33 !important;
 }
 
-/* Kontener z postami */
+/* MAIN CONTAINER */
+
 .container {
-    max-width: 700px;
+    max-width: 800px;
     margin: 0 auto;
     padding: 20px;
 }
 
+/* HEADINGS */
+
 h2 {
     margin-bottom: 25px;
-    font-size: 1.5rem;
-    color: #fff;
+    font-size: 1.8rem;
+    text-align: center;
+
+    background: linear-gradient(135deg, #ffffff, #e0e0ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    text-shadow: 0 4px 20px rgba(0,0,0,0.4);
 }
 
+/* POSTS */
+
 .post {
-    background-color: #454545; /* Jaśniejszy szary dla postów */
-    padding: 20px;
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+
+    padding: 25px;
+    border-radius: 20px;
     margin-bottom: 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+
+    animation: fadeInUp 0.6s ease-out;
 }
 
 .post strong {
-    color: #fff;
     font-size: 1.1rem;
+    color: #444;
 }
 
 .post small {
-    color: #bbb;
+    color: #777;
     display: block;
     margin-top: 5px;
 }
 
 .post p {
     margin-top: 15px;
-    color: #e0e0e0;
+    color: #555;
     line-height: 1.6;
+}
+
+/* ANIMACJA */
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
