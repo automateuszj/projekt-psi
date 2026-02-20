@@ -39,6 +39,7 @@ SELECT
 FROM posts p
 JOIN content_creators cc ON p.content_creator_id = cc.id
 JOIN users u ON cc.user_id = u.user_id
+WHERE p.hidden = 0
 ORDER BY p.created_at DESC
 ";
 
