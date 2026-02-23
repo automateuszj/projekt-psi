@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         catch (Exception $e) {
             $conn->rollback();
-            $error = 'Błąd przy tworzeniu użytkownika (możliwe, że login jest zajęty)';
+            $error = 'Błąd przy tworzeniu użytkownika';
         }
     }
 }
