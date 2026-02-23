@@ -33,20 +33,48 @@ if ($row = $result->fetch_assoc()) {
 
 $sql = "
 SELECT 
+    p.id,
     p.content,
     p.created_at,
-    u.username
+    u.username,
+    COUNT(l.like_id) AS likes
 FROM posts p
 JOIN content_creators cc ON p.content_creator_id = cc.id
 JOIN users u ON cc.user_id = u.user_id
+LEFT JOIN likes l ON p.id = l.post_id
 WHERE p.hidden = 0
+GROUP BY p.id, p.content, p.created_at, u.username
 ORDER BY p.created_at DESC
 ";
 
 $result = $conn->query($sql);
 
 $stmt->close();
-$conn->close();
+
+//dodawanie like, to jakies glupie
+if ($_SERVER['REQUEST_METHOD'] === 'POST') 
+{
+    $stmt = $conn->prepare("
+        DELETE FROM likes 
+        WHERE user_id = ? AND post_id = ?
+    ");
+
+    $stmt->bind_param('ii', $userId, $_POST['post_id']);
+    $stmt->execute();
+
+    if ($stmt->affected_rows === 0) {
+        $insert = $conn->prepare("
+            INSERT INTO likes (user_id, post_id)
+            VALUES (?, ?)
+        ");
+        $insert->bind_param('ii', $userId, $_POST['post_id']);
+        $insert->execute();
+        $insert->close();
+    }
+    header('Location: welcome.php');
+
+    $stmt->close();
+}
 
 ?>
 
@@ -85,6 +113,11 @@ $conn->close();
                     <strong><?= htmlspecialchars($row['username']) ?></strong>
                     <small><?= $row['created_at'] ?></small>
                     <p><?= nl2br(htmlspecialchars($row['content'])) ?></p>
+                    <form method="post">
+                    <label><?= htmlspecialchars($row['likes']) ?></label>
+                    <input type="hidden" name="post_id" value="<?= $row['id'] ?>">
+                    <button type="submit"><3</button>
+                    </form>
                 </div>
             <?php endwhile; ?>
         <?php else: ?>
