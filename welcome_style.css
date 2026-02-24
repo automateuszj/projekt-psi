@@ -1,3 +1,4 @@
+/* RESET I PODSTAWY */
 * {
     margin: 0;
     padding: 0;
@@ -12,8 +13,37 @@ body {
     padding-top: 100px;
 }
 
-/* NAVBAR */
+/* PRZYCISK POWROTU (GÓRNY RÓG) */
+.back-link {
+    position: fixed;
+    top: 25px;
+    left: 25px;
+    text-decoration: none;
+    color: #555 !important; 
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    padding: 10px 20px;
+    border-radius: 50px; 
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+}
 
+.back-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    color: #667eea !important;
+}
+
+.back-link::before {
+    content: '←';
+    margin-right: 8px;
+}
+
+/* NAVBAR (STYL DLA WELCOME) */
 .navbar {
     position: fixed;
     top: 20px;
@@ -21,106 +51,92 @@ body {
     transform: translateX(-50%);
     width: 90%;
     max-width: 1100px;
-
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
-
     padding: 1rem 2rem;
     border-radius: 20px;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
     z-index: 1000;
 }
 
-.user-info {
-    font-size: 1rem;
-    color: #555;
-}
-
-.user-info span {
-    font-weight: bold;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-/* LINKI */
-
-.nav-links a {
-    text-decoration: none;
-    font-weight: 600;
-    margin-left: 20px;
-    transition: 0.3s ease;
-    color: #555;
-}
-
-.nav-links a:hover {
-    color: #667eea;
-}
-
-/* BUTTON STYLE (jak w loginie) */
-
-.btn-creator {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white !important;
-    padding: 8px 16px;
-    border-radius: 12px;
-    transition: 0.3s ease;
-}
-
-.btn-creator:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
-}
-
-.btn-logout {
-    color: #c33 !important;
-}
-
-/* MAIN CONTAINER */
-
+/* KONTENER GŁÓWNY */
 .container {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
 }
 
-/* HEADINGS */
-
-h2 {
-    margin-bottom: 25px;
-    font-size: 1.8rem;
+/* FORMULARZ DODAWANIA POSTA */
+.add-post-container h2 {
+    background: none;
+    -webkit-text-fill-color: white; 
+    color: white;
+    text-shadow: 1px 1px 0px rgba(0,0,0,0.2), -1px -1px 0px rgba(0,0,0,0.2); 
     text-align: center;
-
-    background: linear-gradient(135deg, #ffffff, #e0e0ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-
-    text-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
 }
 
-/* POSTS */
+.add-post-container textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 1.2rem;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    font-family: inherit;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    outline: none;
+    transition: 0.3s;
+    background: rgba(255, 255, 255, 0.8);
+}
 
+.add-post-container textarea:focus {
+    border-color: #667eea;
+    background: #fff;
+}
+
+.btn-add {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    width: 100%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-add:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+}
+
+/* NAGŁÓWKI SEKCJI */
+.container > h2 {
+    margin-top: 2rem;
+    margin-bottom: 25px;
+    text-align: center;
+    color: white; 
+    -webkit-text-fill-color: white;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    font-size: 1.8rem;
+}
+
+/* POSTY */
 .post {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
-
     padding: 25px;
     border-radius: 20px;
     margin-bottom: 20px;
-
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-
     animation: fadeInUp 0.6s ease-out;
-}
-
-.post strong {
-    font-size: 1.1rem;
-    color: #444;
 }
 
 .post small {
@@ -135,8 +151,26 @@ h2 {
     line-height: 1.6;
 }
 
-/* ANIMACJA */
+/* PRZYCISK USUWANIA */
+.btn-delete {
+    background: transparent;
+    color: #ff4d4d;
+    border: 1px solid #ff4d4d;
+    padding: 6px 15px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: all 0.3s ease;
+}
 
+.btn-delete:hover {
+    background: #ff4d4d;
+    color: white;
+}
+
+/* ANIMACJA */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -146,4 +180,38 @@ h2 {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* STYL DLA FORMULARZA REJESTRACJI */
+.creator-form .input-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.creator-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: white !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    margin-left: 5px;
+}
+
+.creator-form input {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: inherit;
+    background: rgba(255, 255, 255, 0.9);
+    outline: none;
+    transition: 0.3s ease;
+}
+
+.creator-form input:focus {
+    border-color: #667eea;
+    background: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
