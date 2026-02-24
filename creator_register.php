@@ -61,10 +61,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
     catch (Exception $e) {
-        $conn->rollback();
-        die('Błąd rejestracji');
-        
-    }
+    $conn->rollback();
+    header('Location: creator_register.php?error=1'); 
+    exit;
+}
 }
 ?>
 
@@ -99,6 +99,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
         </div>
     </div>
-
+    <?php if (isset($_GET['error'])): ?>
+        <script>
+            alert('Wystąpił błąd podczas rejestracji. Spróbuj ponownie.');
+            window.history.replaceState({}, document.title, window.location.pathname);
+        </script>
+    <?php endif; ?>
+</body>
 </body>
 </html>
