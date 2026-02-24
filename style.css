@@ -168,3 +168,90 @@ button:active {
         font-size: 1.8rem;
     }
 }
+
+/* FORMULARZ DODAWANIA POSTA */
+
+.add-post-container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    margin-bottom: 3rem;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.add-post-container h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    color: #555;
+    text-align: left;
+}
+
+textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 1rem;
+    border: 2px solid #e1e5e9;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.8);
+    resize: vertical;
+    outline: none;
+    margin-bottom: 1rem;
+}
+
+textarea:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    transform: translateY(-2px);
+}
+
+/* PRZYCISKI */
+
+.btn-add {
+    width: 100%; /* Spójne z przyciskiem logowania */
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-add:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+}
+
+.btn-delete {
+    background: transparent;
+    color: #ff4d4d;
+    border: 1px solid #ff4d4d;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.btn-delete:hover {
+    background: #ff4d4d;
+    color: white;
+    box-shadow: 0 5px 15px rgba(255, 77, 77, 0.3);
+}
+
+/* FOOTER POSTA (dla przycisku usuń) */
+.post-footer {
+    display: flex;
+    justify-content: flex-end;
+    border-top: 1px solid rgba(0,0,0,0.05);
+    margin-top: 1rem;
+}

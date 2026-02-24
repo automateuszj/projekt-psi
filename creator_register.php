@@ -61,31 +61,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
     catch (Exception $e) {
-        $conn->rollback();
-        die('Błąd rejestracji');
-        
-    }
+    $conn->rollback();
+    header('Location: creator_register.php?error=1'); 
+    exit;
+}
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Zostań Twórcą</title>
+    <link rel="stylesheet" href="welcome_style.css">
 </head>
 <body>
 
-    <form method="post">
+    <a href="welcome.php" class="back-link">powrót na stronę główną</a>
 
-        <label for="phone" >Phone:</label><br>
-        <input type="number" id="phone" name="phone" required><br>
-        <label for="email" >email:</label><br>
-        <input type="email" id="email" name="email" required>
-        <button type="submit">Dodaj</button>
+    <div class="container">
+        <div class="add-post-container">
+            <h2>Zostań Twórcą</h2>
+            
+            <form method="post" class="creator-form">
+                <div class="input-group">
+                    <label for="phone">Telefon:</label>
+                    <input type="number" id="phone" name="phone" required>
+                </div>
 
-    </form>
+                <div class="input-group">
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
 
+                <button type="submit" class="btn-add">Dodaj</button>
+            </form>
+        </div>
+    </div>
+    <?php if (isset($_GET['error'])): ?>
+        <script>
+            alert('Wystąpił błąd podczas rejestracji. Spróbuj ponownie.');
+            window.history.replaceState({}, document.title, window.location.pathname);
+        </script>
+    <?php endif; ?>
+</body>
 </body>
 </html>
