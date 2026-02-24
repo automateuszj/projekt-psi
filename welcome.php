@@ -48,34 +48,8 @@ ORDER BY p.created_at DESC
 ";
 
 $result = $conn->query($sql);
-
 $stmt->close();
-
-//dodawanie like, to jakies glupie
-if ($_SERVER['REQUEST_METHOD'] === 'POST') 
-{
-    $stmt = $conn->prepare("
-        DELETE FROM likes 
-        WHERE user_id = ? AND post_id = ?
-    ");
-
-    $stmt->bind_param('ii', $userId, $_POST['post_id']);
-    $stmt->execute();
-
-    if ($stmt->affected_rows === 0) {
-        $insert = $conn->prepare("
-            INSERT INTO likes (user_id, post_id)
-            VALUES (?, ?)
-        ");
-        $insert->bind_param('ii', $userId, $_POST['post_id']);
-        $insert->execute();
-        $insert->close();
-    }
-    header('Location: welcome.php');
-
-    $stmt->close();
-}
-
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -113,11 +87,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
                     <strong><?= htmlspecialchars($row['username']) ?></strong>
                     <small><?= $row['created_at'] ?></small>
                     <p><?= nl2br(htmlspecialchars($row['content'])) ?></p>
-                    <form method="post">
-                    <label><?= htmlspecialchars($row['likes']) ?></label>
-                    <input type="hidden" name="post_id" value="<?= $row['id'] ?>">
-                    <button type="submit"><3</button>
-                    </form>
+                    <label class="likesNumber" data-id="<?= $row['id'] ?>"><?= htmlspecialchars($row['likes']) ?></label>
+                    <button type="submit" data-id="<?= $row['id'] ?>" class="likeBtn">❤️</button>
                 </div>
             <?php endwhile; ?>
         <?php else: ?>
@@ -126,6 +97,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
             </div>
         <?php endif; ?>
     </div>
+
+    <!-- javascript -->
+     <script src="script.js"></script>
+
 </body>
 
 </html>
