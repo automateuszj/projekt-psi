@@ -25,6 +25,7 @@
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+        //usuniecie posta
         if (isset($_POST['delete_post_id'])){
             $stmt = $conn->prepare("
             UPDATE posts
@@ -41,11 +42,33 @@
             exit;
         }
 
-        $content = trim($_POST['content'] ?? '');
-
+        //edycja posta
+        $content = trim($_POST['edited_content'] ?? '');
         if ($content === '') {
             die('Tresc posta nie moze byc pusta');
         }
+        else if (isset($_POST['edit_post_id'])){
+            $stmt = $conn->prepare("
+            UPDATE posts
+            SET content = ?
+            WHERE id = ?
+            ");
+            $stmt->bind_param('si', $content, $_POST['edit_post_id']);
+            $stmt->execute();
+
+            $stmt->close();
+            $conn->close();
+
+            header('Location: creator_panel.php?post_updated=1');
+            exit;
+        }
+
+        //dodanie nowego posta
+        $content = trim($_POST['content'] ?? '');
+        if ($content === '') {
+            die('Tresc posta nie moze byc pusta');
+        }
+        else{
             $stmt = $conn->prepare("
             INSERT INTO posts (content_creator_id, content)
             VALUES (?, ?)
@@ -58,6 +81,7 @@
 
             header('Location: creator_panel.php?post_added=1');
             exit;
+        }
     }
 
     $stmt = $conn->prepare("
@@ -100,21 +124,33 @@
 
         <?php if ($result->num_rows > 0): ?>
             <?php while ($row = $result->fetch_assoc()): ?>
-                <div class="post">
+                <div class="post" data-id="<?= $row['id'] ?>">
                     <small><?= $row['created_at'] ?></small>
-                    <p><?= nl2br(htmlspecialchars($row['content'])) ?></p>
-                    
+
+                    <p class="post-content"><?= nl2br(htmlspecialchars($row['content'])) ?></p>
+
+                    <form method="post" class="edit-form" style="display:none;">
+                        <input type="hidden" name="edit_post_id" value="<?= $row['id'] ?>">
+                        <textarea name="edited_content"><?= htmlspecialchars($row['content']) ?></textarea>
+                        <button type="submit" class="btn-save">Zapisz</button>
+                        <button type="button" class="btn-cancel">Anuluj</button>
+                    </form>
+
                     <div class="post-footer">
                         <form method="post" onsubmit="return confirm('Na pewno chcesz usunąć?');">
                             <input type="hidden" name="delete_post_id" value="<?= $row['id'] ?>">
                             <button type="submit" class="btn-delete">Usuń</button>
                         </form>
+                        <button type="button" class="btn-edit">Edytuj</button>
                     </div>
                 </div>
             <?php endwhile; ?>
         <?php else: ?>
             <p style="text-align: center; color: white; opacity: 0.8;">Brak wpisów do wyświetlenia.</p>
         <?php endif; ?>
+    </div>
 
-    </div> </body>
+    <script src="edit_post.js"></script>
+</body>
+
 </html>
