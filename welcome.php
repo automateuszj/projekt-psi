@@ -13,6 +13,8 @@ if (!isset($_SESSION['user_id'])) {
 
 $userId = $_SESSION['user_id'];
 
+//sesja
+
 $isCreator = false;
 
 $sql = "
@@ -30,6 +32,8 @@ $result = $stmt->get_result();
 if ($row = $result->fetch_assoc()) {
     $isCreator = ($row['active'] == 1);
 }
+
+//sprawdzanie czy jest creatorem
 
 $sql = "
 SELECT 
@@ -50,6 +54,8 @@ ORDER BY p.created_at DESC
 $result = $conn->query($sql);
 $stmt->close();
 $conn->close();
+
+//pobieranie postow
 ?>
 
 <!DOCTYPE html>
@@ -75,6 +81,7 @@ $conn->close();
             <?php endif; ?>
 
             <a href="logout.php" class="btn-logout">Wyloguj się</a>
+            <a href="terms_of_usage.html">warunki użytkowania</a>
         </div>
     </nav>
 
@@ -99,8 +106,7 @@ $conn->close();
     </div>
 
     <!-- javascript -->
-     <script src="script.js"></script>
-
+    <script src="script.js"></script>
 </body>
 
 </html>
