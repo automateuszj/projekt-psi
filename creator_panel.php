@@ -153,7 +153,7 @@
         <?php endif; ?>
     </div>
 
-    <script src="edit_post.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
