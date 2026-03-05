@@ -1,17 +1,6 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
-session_start();
-require 'connection.php';
-
-if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
-    exit;
-}
-
-$userId = $_SESSION['user_id'];
+include 'session.php';
 
 $stmt = $conn->prepare("SELECT user_id FROM admin_users WHERE user_id = ? LIMIT 1");
 $stmt->bind_param('i', $userId);
@@ -48,44 +37,10 @@ $result = $conn->query($sql);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     //usuniecie posta
-    if (isset($_POST['delete_post_id'])){
-        $stmt = $conn->prepare("
-        UPDATE posts
-        SET hidden = 1
-        WHERE id = ?
-        ");
-        $stmt->bind_param('i', $_POST['delete_post_id']);
-        $stmt->execute();
-
-        $stmt->close();
-        $conn->close();
-
-        header('Location: admin_panel.php?post_deleted=1');
-        exit;
-    }
+    include 'delete_post.php';
 
     //edycja posta
-    if (isset($_POST['edit_post_id']))
-    {
-        $content = trim($_POST['edited_content'] ?? '');
-
-        if ($content === '') 
-            die('Tresc posta nie moze byc pusta');
-
-        $stmt = $conn->prepare("
-        UPDATE posts
-        SET content = ?
-        WHERE id = ?
-        ");
-        $stmt->bind_param('si', $content, $_POST['edit_post_id']);
-        $stmt->execute();
-
-        $stmt->close();
-        $conn->close();
-
-        header('Location: admin_panel.php?post_updated=1');
-        exit;
-    }
+    include 'edit_post.php';
 
 }
 $conn->close();
@@ -108,18 +63,6 @@ $conn->close();
         <div class="user-info">
             Witaj, <span><?= htmlspecialchars($_SESSION['username']) ?></span> Admin
         </div>
-        
-        <!-- <div class="nav-links">
-            <?php if (!$isCreator): ?>
-                <a href="creator_register.php" class="btn-creator">Zostań twórcą</a>
-            <?php else: ?>
-                <a href="creator_panel.php" style="color: #38bdf8; font-weight: bold;">Twoja twórczość</a>
-                <a href="creator_unregister.php">Zrezygnuj</a>
-            <?php endif; ?>
-
-            <a href="logout.php" class="btn-logout">Wyloguj się</a>
-            <a href="terms_of_usage.html">warunki użytkowania</a>
-        </div> -->
     </nav>
 
     <div class="container">
@@ -159,7 +102,7 @@ $conn->close();
     </div>
 
     <!-- javascript -->
-    <script src="script.js"></script>
+    <script src="test.js"></script>
 </body>
 
 </html>

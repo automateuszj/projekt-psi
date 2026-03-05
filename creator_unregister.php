@@ -1,13 +1,5 @@
 <?php
-session_start();
-require 'connection.php';
-
-if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
-    exit;
-}
-
-$userId = $_SESSION['user_id'];
+include 'session.php';
 
 $sql = "
 UPDATE content_creators

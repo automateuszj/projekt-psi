@@ -1,13 +1,5 @@
 <?php
-    session_start();
-    require 'connection.php';
-
-    if (!isset($_SESSION['user_id'])) {
-        header('Location: login.php');
-        exit;
-    }
-
-    $userId = $_SESSION['user_id'];
+    include 'session.php';
 
     $stmt = $conn->prepare("SELECT id FROM content_creators WHERE user_id = ? AND active = 1 LIMIT 1");
     $stmt->bind_param('i', $userId);
@@ -26,44 +18,10 @@
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         //usuniecie posta
-        if (isset($_POST['delete_post_id'])){
-            $stmt = $conn->prepare("
-            UPDATE posts
-            SET hidden = 1
-            WHERE id = ?
-            ");
-            $stmt->bind_param('i', $_POST['delete_post_id']);
-            $stmt->execute();
-
-            $stmt->close();
-            $conn->close();
-
-            header('Location: creator_panel.php?post_deleted=1');
-            exit;
-        }
+        include 'delete_post.php';
 
         //edycja posta
-        if (isset($_POST['edit_post_id']))
-        {
-            $content = trim($_POST['edited_content'] ?? '');
-
-            if ($content === '') 
-                die('Tresc posta nie moze byc pusta');
-
-            $stmt = $conn->prepare("
-            UPDATE posts
-            SET content = ?
-            WHERE id = ?
-            ");
-            $stmt->bind_param('si', $content, $_POST['edit_post_id']);
-            $stmt->execute();
-
-            $stmt->close();
-            $conn->close();
-
-            header('Location: creator_panel.php?post_updated=1');
-            exit;
-        }
+        include 'edit_post.php';
 
         //dodanie nowego posta
         $content = trim($_POST['content'] ?? '');
