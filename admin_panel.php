@@ -2,6 +2,7 @@
 
 include 'session.php';
 
+//sprawdzanie czy jest admin
 $stmt = $conn->prepare("SELECT user_id FROM admin_users WHERE user_id = ? LIMIT 1");
 $stmt->bind_param('i', $userId);
 $stmt->execute();
@@ -83,7 +84,7 @@ $conn->close();
     </div>
 
     <!-- javascript -->
-    <script src="test.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>

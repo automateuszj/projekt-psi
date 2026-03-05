@@ -66,13 +66,15 @@ $conn->close();
         <?php if ($result->num_rows > 0): ?>
             <?php while ($row = $result->fetch_assoc()): ?>
                 <div class="post">
-                    <strong><?= htmlspecialchars($row['username']) ?></strong>
+                    <a href="account.php?content_creator_id=<?= $row['content_creator_id'] ?>" class="creatorAcc">
+                        <strong><?= htmlspecialchars($row['username']) ?></strong>
+                    </a>
                     <small><?= $row['created_at'] ?></small>
                     <p><?= nl2br(htmlspecialchars($row['content'])) ?></p>
                     <div class="likes-wrapper">
                     <button type="button" data-id="<?= $row['id'] ?>" class="likeBtn">❤️</button>
                     <span class="likesNumber" data-id="<?= $row['id'] ?>"><?= htmlspecialchars($row['likes']) ?> </span>
-                </div>
+                    </div>
                 </div>
             <?php endwhile; ?>
         <?php else: ?>

@@ -361,3 +361,13 @@ body {
     color: #333;
     font-size: 1.1rem;
 }
+
+.creatorAcc {
+    text-decoration: none;
+    color: #667eea;
+}
+
+.creatorAcc:hover {
+    color: #5566cc;
+    text-decoration: underline;
+}
