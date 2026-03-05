@@ -13,7 +13,6 @@
 
     $row = $res->fetch_assoc();
     $creatorId = $row['id'];
-    $stmt->close();
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -44,15 +43,8 @@
         }
     }
 
-    $stmt = $conn->prepare("
-    SELECT id, content, created_at
-    FROM posts
-    WHERE content_creator_id = ? AND hidden = 0
-    ORDER BY created_at DESC
-    ");
-    $stmt->bind_param('i', $creatorId);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    $filterUserId = $creatorId;
+    include 'downloading_posts.php';
 
     $stmt->close();
     $conn->close();
