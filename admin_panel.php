@@ -13,27 +13,15 @@ if (!isset($_SESSION['user_id'])) {
 
 $userId = $_SESSION['user_id'];
 
-//sesja
+$stmt = $conn->prepare("SELECT user_id FROM admin_users WHERE user_id = ? LIMIT 1");
+$stmt->bind_param('i', $userId);
+$stmt->execute();
+$res = $stmt->get_result();
 
-// $isCreator = false;
-
-// $sql = "
-// SELECT active
-// FROM content_creators
-// WHERE user_id = ?
-// LIMIT 1
-// ";
-
-// $stmt = $conn->prepare($sql);
-// $stmt->bind_param('i', $userId);
-// $stmt->execute();
-
-// $result = $stmt->get_result();
-// if ($row = $result->fetch_assoc()) {
-//     $isCreator = ($row['active'] == 1);
-// }
-
-//sprawdzanie czy jest creatorem
+if ($res->num_rows === 0) {
+    header('Location: welcome.php');
+    exit;
+}
 
 $sql = "
 SELECT 
@@ -77,11 +65,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     //edycja posta
-    $content = trim($_POST['edited_content'] ?? '');
-    if ($content === '') {
-        die('Tresc posta nie moze byc pusta');
-    }
-    else if (isset($_POST['edit_post_id'])){
+    if (isset($_POST['edit_post_id']))
+    {
+        $content = trim($_POST['edited_content'] ?? '');
+
+        if ($content === '') 
+            die('Tresc posta nie moze byc pusta');
+
         $stmt = $conn->prepare("
         UPDATE posts
         SET content = ?
@@ -96,6 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: admin_panel.php?post_updated=1');
         exit;
     }
+
 }
 $conn->close();
 ?>
@@ -137,9 +128,10 @@ $conn->close();
         <?php if ($result->num_rows > 0): ?>
             <?php while ($row = $result->fetch_assoc()): ?>
                 <div class="post">
+
                     <strong><?= htmlspecialchars($row['username']) ?> ID:<?= ($row['content_creator_id'])?></strong>
                     <small><?= $row['created_at'] ?></small>
-                    <p><?= nl2br(htmlspecialchars($row['content'])) ?></p>
+                    <p class="post-content"><?= nl2br(htmlspecialchars($row['content'])) ?></p>
                     <label class="likesNumber" data-id="<?= $row['id'] ?>"><?= htmlspecialchars($row['likes']) ?></label>
                     <button type="submit" data-id="<?= $row['id'] ?>" class="likeBtn">❤️</button>
                     
