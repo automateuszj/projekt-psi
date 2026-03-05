@@ -43,11 +43,13 @@
         }
 
         //edycja posta
-        $content = trim($_POST['edited_content'] ?? '');
-        if ($content === '') {
-            die('Tresc posta nie moze byc pusta');
-        }
-        else if (isset($_POST['edit_post_id'])){
+        if (isset($_POST['edit_post_id']))
+        {
+            $content = trim($_POST['edited_content'] ?? '');
+
+            if ($content === '') 
+                die('Tresc posta nie moze byc pusta');
+
             $stmt = $conn->prepare("
             UPDATE posts
             SET content = ?
@@ -103,6 +105,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="logo.ico">
     <title>Panel Twórcy</title>
     <link rel="stylesheet" href="welcome_style.css"> 
 </head>
@@ -131,8 +134,8 @@
 
                     <form method="post" class="edit-form" style="display:none;">
                         <input type="hidden" name="edit_post_id" value="<?= $row['id'] ?>">
-                        <textarea name="edited_content"><?= htmlspecialchars($row['content']) ?></textarea>
-                        <button type="submit" class="btn-save">Zapisz</button>
+                        <textarea name="edited_content" required><?= htmlspecialchars($row['content']) ?></textarea>
+                        <button type="submit">Zapisz</button>
                         <button type="button" class="btn-cancel">Anuluj</button>
                     </form>
 

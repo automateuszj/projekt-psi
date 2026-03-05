@@ -64,6 +64,7 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Strona Główna</title>
+    <link rel="icon" type="image/x-icon" href="logo.ico">
     <link rel="stylesheet" href="welcome_style.css"> </head>
 
 <body>
