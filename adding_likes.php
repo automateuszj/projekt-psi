@@ -1,14 +1,7 @@
 <?php
 header('Content-Type: application/json');
 
-session_start();
-require 'connection.php';
-$error = ''; 
-
-if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
-    exit;
-}
+include 'session.php';
 
 $userId = $_SESSION['user_id'];
 $post_id = $_GET['post_id'] ?? null;
@@ -40,11 +33,7 @@ if ($stmt->affected_rows === 0) {
     $insert->close();
     //przygotowanie odpowiedzi, ze like zostal dodany
     $response = [
-    // "status" => "success",
     $action = "liked"
-    // "action" => "liked",
-    // "post_id" => $post_id,
-    // "likes_number" => $row['likes'] + 1
     ];
 }
 //usuniecie like
@@ -52,10 +41,7 @@ else
 {
     //przygotowanie odpowiedzi ze like zostal usuniety
     $response = [
-    // "status" => "success",
     $action = "unliked"
-    // "post_id" => $post_id,
-    // "likes_number" => $row['likes'] - 1
     ];
 }
 
