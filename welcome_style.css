@@ -1,4 +1,4 @@
-/* RESET I PODSTAWY */
+/* Wyzerowanie marginesów, żeby nic nie odstawało */
 * {
     margin: 0;
     padding: 0;
@@ -13,7 +13,7 @@ body {
     padding-top: 100px;
 }
 
-/* PRZYCISK POWROTU (GÓRNY RÓG) */
+/* Przycisk powrotu w lewym górnym rogu */
 .back-link {
     position: fixed;
     top: 25px;
@@ -43,7 +43,7 @@ body {
     margin-right: 8px;
 }
 
-/* NAVBAR (STYL DLA WELCOME) */
+/* Główny pasek nawigacji */
 .navbar {
     position: fixed;
     top: 20px;
@@ -62,14 +62,14 @@ body {
     z-index: 1000;
 }
 
-/* KONTENER GŁÓWNY */
+/* Środek strony */
 .container {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
 }
 
-/* FORMULARZ DODAWANIA POSTA */
+/* Stylizacja pola dodawania nowego posta */
 .add-post-container h2 {
     background: none;
     -webkit-text-fill-color: white; 
@@ -99,10 +99,13 @@ body {
     background: #fff;
 }
 
+/* Główny przycisk dodaj post */
 .btn-add {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
+    background: #fff; 
+    color: #764ba2;
+    border: 2px solid transparent;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    margin-top: 5px;
     padding: 1rem;
     border-radius: 15px;
     font-size: 1.1rem;
@@ -113,11 +116,13 @@ body {
 }
 
 .btn-add:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+    background: #f0f0f0;
+    transform: translateY(-3px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+    color: #667eea;
 }
 
-/* NAGŁÓWKI SEKCJI */
+/* Napisy nad sekcjami */
 .container > h2 {
     margin-top: 2rem;
     margin-bottom: 25px;
@@ -128,7 +133,7 @@ body {
     font-size: 1.8rem;
 }
 
-/* POSTY */
+/* Wygląd pojedynczego posta */
 .post {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
@@ -151,7 +156,7 @@ body {
     line-height: 1.6;
 }
 
-/* PRZYCISK USUWANIA */
+/* Czerwony przycisk do wywalania postów */
 .btn-delete {
     background: transparent;
     color: #ff4d4d;
@@ -170,7 +175,7 @@ body {
     color: white;
 }
 
-/* ANIMACJA */
+/* Efekt wjeżdżania postów od dołu */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -182,7 +187,7 @@ body {
     }
 }
 
-/* STYL DLA FORMULARZA REJESTRACJI */
+/* Formularz dla nowych twórców */
 .creator-form .input-group {
     margin-bottom: 1.5rem;
     text-align: left;
@@ -225,4 +230,83 @@ body {
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
     animation: fadeInUp 0.6s ease-out;
     text-align: center;
+}
+
+/* Stopka posta z przyciskami akcji */
+.post-footer {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 15px;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+}
+
+/* Niebieski przycisk do edycji */
+.btn-edit {
+    background: transparent;
+    color: #667eea;
+    border: 1px solid #667eea;
+    padding: 6px 15px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-edit:hover {
+    background: #667eea;
+    color: white;
+}
+
+/* Styl dla ukrytego formularza edycji */
+.edit-form {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.edit-form textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    font-family: inherit;
+    background: #f9f9f9;
+    outline: none;
+    resize: vertical;
+}
+
+.edit-form textarea:focus {
+    border-color: #764ba2;
+    background: #fff;
+}
+
+/* Przyciski wewnątrz edycji */
+.edit-form button[type="submit"] {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-cancel {
+    background: #6c757d;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.edit-form button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
 }
