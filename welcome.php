@@ -95,8 +95,10 @@ $conn->close();
                     <strong><?= htmlspecialchars($row['username']) ?></strong>
                     <small><?= $row['created_at'] ?></small>
                     <p><?= nl2br(htmlspecialchars($row['content'])) ?></p>
-                    <label class="likesNumber" data-id="<?= $row['id'] ?>"><?= htmlspecialchars($row['likes']) ?></label>
-                    <button type="submit" data-id="<?= $row['id'] ?>" class="likeBtn">❤️</button>
+                    <div class="likes-wrapper">
+                    <button type="button" data-id="<?= $row['id'] ?>" class="likeBtn">❤️</button>
+                    <span class="likesNumber" data-id="<?= $row['id'] ?>"><?= htmlspecialchars($row['likes']) ?> </span>
+                </div>
                 </div>
             <?php endwhile; ?>
         <?php else: ?>
