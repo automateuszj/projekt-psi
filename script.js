@@ -1,4 +1,4 @@
-debugger;
+// debugger;
 //przypisanie zmiennej button przycisku z html
 let buttons = document.querySelectorAll(".likeBtn");
 

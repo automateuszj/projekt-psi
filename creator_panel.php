@@ -43,11 +43,13 @@
         }
 
         //edycja posta
-        $content = trim($_POST['edited_content'] ?? '');
-        if ($content === '') {
-            die('Tresc posta nie moze byc pusta');
-        }
-        else if (isset($_POST['edit_post_id'])){
+        if (isset($_POST['edit_post_id']))
+        {
+            $content = trim($_POST['edited_content'] ?? '');
+
+            if ($content === '') 
+                die('Tresc posta nie moze byc pusta');
+
             $stmt = $conn->prepare("
             UPDATE posts
             SET content = ?
