@@ -166,8 +166,9 @@ body {
     font-size: 0.85rem;
     font-weight: 600;
     cursor: pointer;
-    margin-top: 15px;
+    margin-top: 0; 
     transition: all 0.3s ease;
+    display: block; 
 }
 
 .btn-delete:hover {
@@ -236,7 +237,7 @@ body {
 .post-footer {
     display: flex;
     gap: 10px;
-    align-items: center;
+    align-items: center; 
     margin-top: 15px;
     border-top: 1px solid #eee;
     padding-top: 15px;
@@ -309,4 +310,9 @@ body {
 .edit-form button:hover {
     opacity: 0.9;
     transform: translateY(-1px);
+}
+
+.post-footer form {
+    margin: 0;
+    display: flex;
 }
