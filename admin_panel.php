@@ -12,27 +12,8 @@ if ($res->num_rows === 0) {
     exit;
 }
 
-$sql = "
-SELECT 
-    p.id,
-    p.content,
-    p.created_at,
-    u.username,
-    p.content_creator_id,
-    COUNT(l.like_id) AS likes
-FROM posts p
-JOIN content_creators cc ON p.content_creator_id = cc.id
-JOIN users u ON cc.user_id = u.user_id
-LEFT JOIN likes l ON p.id = l.post_id
-WHERE p.hidden = 0
-GROUP BY p.id, p.content, p.created_at, u.username
-ORDER BY p.created_at DESC
-";
-
-$result = $conn->query($sql);
-
-
 //pobieranie postow
+include 'downloading_posts.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 

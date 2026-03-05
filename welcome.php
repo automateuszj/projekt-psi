@@ -24,27 +24,12 @@ if ($row = $result->fetch_assoc()) {
 
 //sprawdzanie czy jest creatorem
 
-$sql = "
-SELECT 
-    p.id,
-    p.content,
-    p.created_at,
-    u.username,
-    COUNT(l.like_id) AS likes
-FROM posts p
-JOIN content_creators cc ON p.content_creator_id = cc.id
-JOIN users u ON cc.user_id = u.user_id
-LEFT JOIN likes l ON p.id = l.post_id
-WHERE p.hidden = 0
-GROUP BY p.id, p.content, p.created_at, u.username
-ORDER BY p.created_at DESC
-";
+//pobieranie postow
+include 'downloading_posts.php';
 
-$result = $conn->query($sql);
 $stmt->close();
 $conn->close();
 
-//pobieranie postow
 ?>
 
 <!DOCTYPE html>
