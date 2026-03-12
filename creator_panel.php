@@ -24,6 +24,7 @@
 
         //dodanie nowego posta
         $content = trim($_POST['content'] ?? '');
+
         if ($content === '') {
             die('Tresc posta nie moze byc pusta');
         }
@@ -34,14 +35,14 @@
             ");
             $stmt->bind_param('is', $creatorId, $content);
             $stmt->execute();
+            $postId = $conn->insert_id;
 
-            $stmt->close();
-            $conn->close();
-
-            header('Location: creator_panel.php?post_added=1');
-            exit;
+            include 'adding_photos.php';
         }
-    }
+
+            // header('Location: creator_panel.php?post_added=1');
+            // exit;
+        }
 
     $filterUserId = $creatorId;
     include 'downloading_posts.php';
@@ -67,8 +68,11 @@
         
         <div class="add-post-container">
             <h2>Dodaj nowy wpis</h2>
-            <form method="post">
+            <form method="post" enctype="multipart/form-data">
                 <textarea name="content" placeholder="O czym myślisz?" required></textarea>
+
+                <input type="file" name="files[]" multiple accept="image/*">
+
                 <button type="submit" class="btn-add">Dodaj post</button>
             </form>
         </div>
