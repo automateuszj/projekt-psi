@@ -71,9 +71,14 @@ $conn->close();
                     </a>
                     <small><?= $row['created_at'] ?></small>
                     <p><?= nl2br(htmlspecialchars($row['content'])) ?></p>
+
+                    <?php if ($row['path'] != 0): ?>
+                    <img src="<?= "uploads/" . htmlspecialchars($row['path']) ?>" alt="zdjęcie posta">
+                    <?php endif; ?>
+
                     <div class="likes-wrapper">
-                    <button type="button" data-id="<?= $row['id'] ?>" class="likeBtn">❤️</button>
-                    <span class="likesNumber" data-id="<?= $row['id'] ?>"><?= htmlspecialchars($row['likes']) ?> </span>
+                        <button type="button" data-id="<?= $row['id'] ?>" class="likeBtn">❤️</button>
+                        <span class="likesNumber" data-id="<?= $row['id'] ?>"><?= htmlspecialchars($row['likes']) ?> </span>
                     </div>
                 </div>
             <?php endwhile; ?>

@@ -24,6 +24,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //edycja posta
     include 'edit_post.php';
 
+    if(isset($_POST['terminate_post_id']))
+    {
+        $stmt = $conn->prepare("
+        DELETE FROM posts
+        WHERE id = ?
+        ");
+        $stmt->bind_param('i', $_POST['terminate_post_id']);
+        $stmt->execute();
+
+        $stmt->close();
+        $conn->close();
+
+        header('Location: ?post_terminated=1');
+        exit;
+    }
+
 }
 $conn->close();
 ?>
@@ -72,6 +88,10 @@ $conn->close();
                             <input type="hidden" name="delete_post_id" value="<?= $row['id'] ?>">
                             <button type="submit" class="btn-delete">Usuń</button>
                         </form>
+                        <form method="post" onsubmit="return confirm('Na pewno chcesz usunąć całkowicie?');">
+                            <input type="hidden" name="terminate_post_id" value="<?= $row['id'] ?>">
+                            <button type="submit" class="btn-delete">Usuń całkowicie</button>
+                        </form> 
                         <button type="button" class="btn-edit">Edytuj</button>
                     </div>
                 </div>
