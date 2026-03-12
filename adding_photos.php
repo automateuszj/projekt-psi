@@ -1,8 +1,5 @@
 <?php
 if (!empty($_FILES['files']['tmp_name'][0])) {
-
-    // $conn->begin_transaction();
-    // try{
         include 'safe_upload.php';
 
         $stmt = $conn->prepare("
@@ -18,16 +15,6 @@ if (!empty($_FILES['files']['tmp_name'][0])) {
             $stmt->bind_param('is', $postId, $name);
             $stmt->execute();
         }
-
-    //     $conn->commit();
-    // }
-
-    // catch (Exception $e) {
-    //     $conn->rollback();
-    //     // $errorMsg = urlencode($e->getMessage()); // bezpieczne do URL
-    //     // header("Location: ?error=$errorMsg");
-    // }
-
 }
 
 ?>

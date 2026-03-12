@@ -29,10 +29,24 @@ $row2 = $result2->fetch_assoc();
         <h2>Wpisy twórcy <?= htmlspecialchars($row2['username'] ?? 'nieznany') ?></h2>
 
         <?php if ($result->num_rows > 0): ?>
-            <?php while ($row = $result->fetch_assoc()): ?>
+            <?php while ($row = $result->fetch_assoc()):?>
+            <?php
+                if (!empty($row['images'])) {
+                    $parts = explode(',', $row['images']);
+                } else {
+                    $parts = [];
+                }
+            ?>
                 <div class="post">
                     <small><?= $row['created_at'] ?></small>
                     <p><?= nl2br(htmlspecialchars($row['content'])) ?></p>
+
+                    <div>
+                        <?php foreach ($parts as $image): ?>
+                            <img width="300" src="<?= "uploads/" . htmlspecialchars($image) ?>" alt="zdjęcie posta">
+                        <?php endforeach; ?>
+                    </div>
+
                     <div class="likes-wrapper">
                     <button type="button" data-id="<?= $row['id'] ?>" class="likeBtn">❤️</button>
                     <span class="likesNumber" data-id="<?= $row['id'] ?>"><?= htmlspecialchars($row['likes']) ?> </span>

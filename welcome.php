@@ -64,7 +64,16 @@ $conn->close();
         <h2>Najnowsze wpisy</h2>
 
         <?php if ($result->num_rows > 0): ?>
-            <?php while ($row = $result->fetch_assoc()): $parts = explode(',', $row['images']);?>
+            <?php while ($row = $result->fetch_assoc()):?>
+            <?php
+                if (!empty($row['images'])) {
+                    $parts = explode(',', $row['images']);
+                } else {
+                    $parts = [];
+                }
+            ?>
+
+
                 <div class="post">
                     <a href="account.php?content_creator_id=<?= $row['content_creator_id'] ?>" class="creatorAcc">
                         <strong><?= htmlspecialchars($row['username']) ?></strong>

@@ -30,8 +30,8 @@ else {
         p.created_at,
         u.username,
         p.content_creator_id,
-        GROUP_CONCAT(pi.path SEPARATOR ',') AS images,
-        COUNT(l.like_id) AS likes
+        GROUP_CONCAT(DISTINCT pi.path SEPARATOR ',') AS images,
+        COUNT(DISTINCT l.like_id) AS likes
     FROM posts p
     JOIN content_creators cc ON p.content_creator_id = cc.id
     JOIN users u ON cc.user_id = u.user_id
