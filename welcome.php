@@ -64,7 +64,16 @@ $conn->close();
         <h2>Najnowsze wpisy</h2>
 
         <?php if ($result->num_rows > 0): ?>
-            <?php while ($row = $result->fetch_assoc()): ?>
+            <?php while ($row = $result->fetch_assoc()):?>
+            <?php
+                if (!empty($row['images'])) {
+                    $parts = explode(',', $row['images']);
+                } else {
+                    $parts = [];
+                }
+            ?>
+
+
                 <div class="post">
                     <a href="account.php?content_creator_id=<?= $row['content_creator_id'] ?>" class="creatorAcc">
                         <strong><?= htmlspecialchars($row['username']) ?></strong>
@@ -72,9 +81,11 @@ $conn->close();
                     <small><?= $row['created_at'] ?></small>
                     <p><?= nl2br(htmlspecialchars($row['content'])) ?></p>
 
-                    <?php if ($row['path'] != 0): ?>
-                    <img src="<?= "uploads/" . htmlspecialchars($row['path']) ?>" alt="zdjęcie posta">
-                    <?php endif; ?>
+                    <div>
+                        <?php foreach ($parts as $image): ?>
+                            <img width="300" src="<?= "uploads/" . htmlspecialchars($image) ?>" alt="zdjęcie posta">
+                        <?php endforeach; ?>
+                    </div>
 
                     <div class="likes-wrapper">
                         <button type="button" data-id="<?= $row['id'] ?>" class="likeBtn">❤️</button>
@@ -88,7 +99,6 @@ $conn->close();
             </div>
         <?php endif; ?>
     </div>
-
     <!-- javascript -->
     <script src="script.js"></script>
 </body>

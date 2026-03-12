@@ -64,7 +64,7 @@ body {
 
 /* Środek strony */
 .container {
-    max-width: 800px;
+    max-width: 90%;
     margin: 0 auto;
     padding: 20px;
 }
@@ -92,11 +92,6 @@ body {
     outline: none;
     transition: 0.3s;
     background: rgba(255, 255, 255, 0.8);
-}
-
-.add-post-container textarea:focus {
-    border-color: #667eea;
-    background: #fff;
 }
 
 /* Główny przycisk dodaj post */
