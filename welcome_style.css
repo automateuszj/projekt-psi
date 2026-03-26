@@ -1,4 +1,4 @@
-/* Wyzerowanie marginesów, żeby nic nie odstawało */
+/* zerowanie marginesow*/
 * {
     margin: 0;
     padding: 0;
@@ -13,7 +13,7 @@ body {
     padding-top: 100px;
 }
 
-/* Przycisk powrotu w lewym górnym rogu */
+/* przyciosk w gornym rogu */
 .back-link {
     position: fixed;
     top: 25px;
@@ -43,7 +43,7 @@ body {
     margin-right: 8px;
 }
 
-/* Główny pasek nawigacji */
+/* glowny pasek nawigacji */
 .navbar {
     position: fixed;
     top: 20px;
@@ -62,14 +62,14 @@ body {
     z-index: 1000;
 }
 
-/* Środek strony */
+/* srodek */
 .container {
     max-width: 90%;
     margin: 0 auto;
     padding: 20px;
 }
 
-/* Stylizacja pola dodawania nowego posta */
+/* dodawanie posta */
 .add-post-container h2 {
     background: none;
     -webkit-text-fill-color: white; 
@@ -94,6 +94,12 @@ body {
     background: rgba(255, 255, 255, 0.8);
 }
 
+.add-post-container textarea:focus {
+    border-color: #667eea;
+    background: #fff;
+}
+
+/* Gprzycisk dodania posta */
 /* Główny przycisk dodaj post */
 .btn-add {
     background: #fff; 
@@ -117,7 +123,7 @@ body {
     color: #667eea;
 }
 
-/* Napisy nad sekcjami */
+/* napisy nad sekcjami */
 .container > h2 {
     margin-top: 2rem;
     margin-bottom: 25px;
@@ -128,7 +134,7 @@ body {
     font-size: 1.8rem;
 }
 
-/* Wygląd pojedynczego posta */
+/* wyglad posta */
 .post {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
@@ -151,7 +157,7 @@ body {
     line-height: 1.6;
 }
 
-/* Czerwony przycisk do wywalania postów */
+/* usuwanie postoiw */
 .btn-delete {
     background: transparent;
     color: #ff4d4d;
@@ -171,7 +177,7 @@ body {
     color: white;
 }
 
-/* Efekt wjeżdżania postów od dołu */
+/* transtion effect  */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -183,7 +189,7 @@ body {
     }
 }
 
-/* Formularz dla nowych twórców */
+/* Formularz dla nowych tworcow */
 .creator-form .input-group {
     margin-bottom: 1.5rem;
     text-align: left;
@@ -228,7 +234,7 @@ body {
     text-align: center;
 }
 
-/* Stopka posta z przyciskami akcji */
+/* przycisk akcji */
 .post-footer {
     display: flex;
     gap: 10px;
@@ -238,7 +244,7 @@ body {
     padding-top: 15px;
 }
 
-/* Niebieski przycisk do edycji */
+/* przycisk edycja */
 .btn-edit {
     background: transparent;
     color: #667eea;
@@ -256,7 +262,7 @@ body {
     color: white;
 }
 
-/* Styl dla ukrytego formularza edycji */
+/* formularz edycji */
 .edit-form {
     margin-top: 15px;
     display: flex;
@@ -281,7 +287,7 @@ body {
     background: #fff;
 }
 
-/* Przyciski wewnątrz edycji */
+/* przyciski wewnątrz edycji */
 .edit-form button[type="submit"] {
     background: #28a745;
     color: white;
@@ -312,13 +318,12 @@ body {
     display: flex;
 }
 
-/* Kontener na przycisk i licznik, żeby były ładnie obok siebie */
 .post {
     display: flex;
     flex-direction: column;
 }
 
-/* lajki */
+/* lajki (z tym bylo pierdolenie) */
 .likes-wrapper {
     display: flex;
     align-items: center;
